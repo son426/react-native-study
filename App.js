@@ -11,15 +11,22 @@ import { useFonts } from "expo-font";
 export default function App() {
   const [userNumber, setUserNumber] = useState();
   const [isGameOver, setIsGameOver] = useState(false);
+  const [guessRounds, setGuessRounds] = useState(0);
 
-  useEffect(() => {}, []);
+  useFonts({});
 
   function pickedNumberHandler(pickedNumber) {
     setUserNumber(pickedNumber);
     setIsGameOver(false);
   }
-  function gameOverHandler() {
+  function gameOverHandler(numberOfRounds) {
     setIsGameOver(true);
+    setGuessRounds(numberOfRounds);
+  }
+  function startNewGameHandler() {
+    setUserNumber(null);
+    setGuessRounds(0);
+    setIsGameOver(false);
   }
 
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
@@ -31,7 +38,13 @@ export default function App() {
   }
 
   if (isGameOver) {
-    screen = <GameOverScreen />;
+    screen = (
+      <GameOverScreen
+        userNumber={userNumber}
+        roundsNumber={guessRounds}
+        onRestart={startNewGameHandler}
+      />
+    );
   }
 
   return (
