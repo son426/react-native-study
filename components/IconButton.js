@@ -7,7 +7,7 @@ function IconButton({ icon, color, onPress }) {
       onPress={onPress}
       style={({ pressed }) => pressed && styles.pressed}
     >
-      <Ionicons name="ios-star" size={24} color="white" />
+      <Ionicons name={icon} size={24} color="white" />
     </Pressable>
   );
 }
