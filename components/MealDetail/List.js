@@ -3,10 +3,8 @@ import Colors from "../../constants/colors";
 
 function List({ data }) {
   return data.map((dataPoint) => (
-    <View style={styles.listItem}>
-      <Text style={styles.innerText} key={dataPoint}>
-        {dataPoint}
-      </Text>
+    <View key={dataPoint} style={styles.listItem}>
+      <Text style={styles.innerText}>{dataPoint}</Text>
     </View>
   ));
 }
