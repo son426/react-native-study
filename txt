@@ -1,5 +1,8 @@
 [기초, 숫자 맞추기 게임 관련]
 
+- app.json에서 전체 배경색 설정할 수 있음. backgroundColor
+  --- navigation 쓸 때는 이게 적용안됨. 앞으로 계속 navigation 쓰니까
+  --- Stack의 프로퍼티 contentStyle로 전체 배경색을 조절
 - flex:1
   --- 기본적으로 root 컨테이너에 다 flex:1 붙이는 거같음.
   --- 이렇게 하면, 자식요소들이 최대한 공간을 크게 차지함.
@@ -12,9 +15,15 @@
 - ScrollView
   --- 무한히 많은 스크롤 아닐 때
   --- 공간이 명확할 때, 스크롤링 해주는 놈
+  --- 각 요소를 View로 감싸고, 전체를 ScrollView로 감싸면 됨.
+  --- 근데 걍 FlatList 하나만 쭉 써도 될듯?
 - 그림자
   --- 안드로이드에서 그림자 주는거는 간단함. elevation 추가
   --- ios에서는 shadow~~~ 로 4개 다 추가해줘야됨. + backgroundColor : "white"까지
+- Pressable 눌렀을 때 시각적 효과
+  --- 안드로이드 : android_ripple
+  --- ios : 스타일링 별도
+  ----- style ={({pressed})=>[styles.button, pressed?styles.buttonPressed : null]}
 - useFonts
   --- 폰트 쓰고 싶을 때는 useFonts 쓰면 됨
 - icons
@@ -41,3 +50,48 @@
   - StatusBar
     --- 휴대폰 상태 표시줄 쓰는 거임.
     --- 상태 표시줄 추가해서 표시하고, 개발하는게 좋음.
+
+[Navigation 관련]
+
+- navigator 종류가 여러가지 있음
+  --- stack, native-stack, drawer 등등 공식문서 참고
+  --- 여기서는 메인으로 native-stack을 주로 활용하고, 뒤에 drawer
+  --- 주로 native-stack을 활용하고, 일부 상황에서만 stack을 활용한다고 함.
+
+- 기본은 stack.container 안에 있는 놈들을 활용
+  --- 얘네는 기본 인자로, navigation, route를 받음. 원래 이걸로 전달전달해야됨.
+  --- 근데 그냥, useNavigation, useRoute 쓰는게 편한듯. 이러면 어디서든 다 쓸 수 있음.
+- 그림자 관련
+  --- 스타일에서 innerContainer, borderRadius, overflow :"hidden" 이 없어도 되는데 있는 경우 // Pressable 안에 View로 굳이 한번 더 감싸는 경우
+  --- 이런거는 다 그림자랑 borderRadius 디테일을 살리기 위해서임. ios 안드로이드 문제도 있음.
+- navigation 헤더 커스텀
+  --- stack.Screen의 프로퍼티로 있음.
+  --- 각 페이지별로 스타일 달 때는 Stack.Screen에다가 options로 달기
+  --- 공통 스타일 달 때는 Stack.Navigator에다가 screenOptions로 달기
+  --- 만약 헤더 이름 같은 걸 동적으로 변경하려면?
+  ----- 1. Stack 컴포넌트 단에서 options를 화살표 함수로 받아 (route, navigation)
+  ----- 2. 각 컴포넌트 안에서, navigation.setOptions() 활용 (useEffect 안에 넣어야함.)
+  --- 헤더에 버튼을 추가로 달고 싶을 때
+  ----- 1. Stack 컴포넌트 단에서 options : {{headerRight:}}
+  ----- 2. 컴포넌트 안으로 가기(다른 컴포넌트들과 상호작용해야할 때)
+- 이미지 크기 문제
+  --- 로컬 이미지를 가져올 때는 react-native가 알아서 크기를 잡아서 렌더링함.
+  --- 웹 이미지를 쓸 때는 크기를 안잡아줌. 스타일로 이미지 크기 지정해줘야함.
+- css처럼 기존 스타일 덮어쓰고 싶을 때
+  --- props로 style을 받기
+  --- style 선언할 때, 배열로 선언해서 덧씌우면 됨.
+  --- MealItem.js에서 style, textStyle을 각각 props로 받는거 참고
+- 스크롤 주는 가장 간단한 방법
+  --- 그냥 다 쓰고
+  --- 페이지 컴포넌트의 가장 부모를 ScrollView로 감싸면 됨.
+  --- 아래 스크롤이 덜된다 하면 marginBottom 추가하면 됨.
+- drawer navigation (옆에서 창 열리는 navigation)
+  --- 기본 구조는 똑같음. 라이브러리만 새로 깔아주고 이름만 바뀜
+  --- 디테일은 강의 다시 보기. 108강 ~
+- tab navigation (하단 탭 기반 navigation)(하단 탭 말고도 많음)
+  --- 얘도 뭐 큰 구조는 똑같음. 공식문서 보고 하면 될듯
+  --- 디테일은 강의 110강 ~
+- navigation 중첩
+  --- 그냥 하면 됨.
+  --- 디테일은 강의 or 코드 참고 (111강~)
+  --- drawer 할 때 에러뜨는 문제 있음. 버전 문제인듯. 여기서는 그냥 1버전으로 강제해서 해결함. 추후에 에러 뜰 소지 있음.

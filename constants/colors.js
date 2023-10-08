@@ -1,7 +1,7 @@
 const Colors = {
-  primary500: "#72063c",
-  primary600: "#640202",
-  accent500: "#ddb52f",
+  primary500: "#3f2f25",
+  primary600: "#351401",
+  accent500: "#e2b497",
 };
 
 export default Colors;
