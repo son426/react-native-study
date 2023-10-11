@@ -51,4 +51,13 @@
 --- 파라미터가 있으면 수정모드, 파라미터가 없으면 추가모드로 구현.
 - navigation.goback() : 뒤로가기
 - 원인이 뭔지 모르겠는데, 에러가 자꾸 뜨면 import문에서 삑났는지 체크
-- 
+
+9강
+- 키보드 입력받을때, textInputConfig 문법 체크
+- autoCorrect는 기본값이 true로 돼있음. 이메일같은거 입력받을때는 꺼줘야함. autoCaptialize는 어디를 자동대문자로 설정해줄지 체크
+- config 뭐뭐 있는지는 쓸 때마다 체크하면 될듯. keyboardType은 아무것도 안하면 그 기본 키보드나옴.
+- multiline 에 스타일링 주는 거 참고 (Input.js) : 만약 multiline이면 styles 배열에 스타일 추가
+- decimal-pad로 입력받아도, 입력값은 무조건 문자열임
+- inputChangeHandler(inputIdentifer, enteredValue) 받을때, inputIdentifier 설정해주는 법
+--- Input에다가 inputChangeHandler.bind(this, "title") 이렇게 하면 indentifier로 title이 들어감
+--- enteredValue는 지 알아서 두번째 매개변수로 잘 들어감.

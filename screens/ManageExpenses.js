@@ -5,11 +5,16 @@ import { GlobalStyles } from "../constants/styles";
 import CustomButton from "../ui/CustomButton";
 import { useRecoilState } from "recoil";
 import { expensesStateWithActions } from "../store/atom";
+import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 
 function ManageExpenses({ route, navigation }) {
   const [expenses, setExpenses] = useRecoilState(expensesStateWithActions);
   const editedExpenseId = route.params?.expenseId;
   const isEditing = !!editedExpenseId;
+
+  const selectedExpense = expenses.find(
+    (expense) => expense.id === editedExpenseId
+  );
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -25,29 +30,24 @@ function ManageExpenses({ route, navigation }) {
   const cancelHandler = () => {
     navigation.goBack();
   };
-  const confirmHandler = () => {
-    const NEW_SAMPLE = {
-      id: "e1",
-      description: "A pair of shoes",
-      amount: 59.99,
-      date: new Date("2021-07-14"),
-    };
-    const UPDATE_SAMPLE = {
-      description: "UPDATED",
-      amount: 59.99,
-      date: new Date("2021-07-14"),
-    };
-
+  const confirmHandler = (expenseDate) => {
     if (isEditing) {
-      //수정로직
-      const newExpenses = expenses.map((e) =>
-        e.id === editedExpenseId ? { id: editedExpenseId, ...UPDATE_SAMPLE } : e
+      // update
+      setExpenses((prevExpenses) =>
+        prevExpenses.map((expense) =>
+          expense.id === editedExpenseId
+            ? { ...expense, ...expenseDate }
+            : expense
+        )
       );
-      setExpenses(newExpenses);
     } else {
-      //추가로직
-      const newExpenses = [...expenses, NEW_SAMPLE];
-      setExpenses(newExpenses);
+      setExpenses((prev) => [
+        {
+          id: new Date().toString() + Math.random().toString(),
+          ...expenseDate,
+        },
+        ...prev,
+      ]);
     }
 
     navigation.goBack();
@@ -55,18 +55,12 @@ function ManageExpenses({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.buttons}>
-        <CustomButton style={styles.button} mode="flat" onPress={cancelHandler}>
-          취소
-        </CustomButton>
-        <CustomButton
-          style={styles.button}
-          mode="flat"
-          onPress={confirmHandler}
-        >
-          확인
-        </CustomButton>
-      </View>
+      <ExpenseForm
+        submitButtonLabel={isEditing ? "Update" : "Add"}
+        onSubmit={confirmHandler}
+        onCancel={cancelHandler}
+        defaultValues={selectedExpense}
+      />
       {isEditing && (
         <View style={styles.deleteContainer}>
           <IconButton
