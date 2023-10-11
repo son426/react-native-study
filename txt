@@ -40,3 +40,15 @@
   - StatusBar
     --- 휴대폰 상태 표시줄 쓰는 거임.
     --- 상태 표시줄 추가해서 표시하고, 개발하는게 좋음.
+
+
+8강 실습
+- navigation 설정할 때, 먼저 오고 싶은 화면을 위에 두면 됨.
+- BottomTabs.Navigator 안에다가 screenOptions 프로퍼티 쓸 때 콜백함수 형태로 받을 수도 있음. 이 때 navigation을 따올 수 있음. 이걸 가지고 헤더에서 화면전환하는 로직 구현가능.
+- presentation : modal을 Stack.Screen option에 주면, 아이폰에 모달 아래서 올라오는 효과.
+- 라우트 파라미터 받을 때
+--- 어떤 페이지에서는 navigation.navigate("ManageExpense", {~~}) 로 파라미터를 주는 반면, 헤더로 누를 때는 파라미터를 줄 수가 없음
+--- 파라미터가 있으면 수정모드, 파라미터가 없으면 추가모드로 구현.
+- navigation.goback() : 뒤로가기
+- 원인이 뭔지 모르겠는데, 에러가 자꾸 뜨면 import문에서 삑났는지 체크
+- 
