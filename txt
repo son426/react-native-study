@@ -61,3 +61,7 @@
 - inputChangeHandler(inputIdentifer, enteredValue) 받을때, inputIdentifier 설정해주는 법
 --- Input에다가 inputChangeHandler.bind(this, "title") 이렇게 하면 indentifier로 title이 들어감
 --- enteredValue는 지 알아서 두번째 매개변수로 잘 들어감.
+
+10강
+- 그냥 똑같음. axios api 임
+- 마지막 강에서, try catch 에 error state 조절해서 errorOverlay 컴포넌트 띄우는거 정도만 체크
